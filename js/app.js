@@ -1,19 +1,28 @@
+// Helper function to get DOM elements
 const getElement = (selector) => {
-  const element = document.querySelector(selector)
+  const element = document.querySelector(selector);
+  if (!element) {
+    throw new Error(`Element not found: ${selector}`);
+  }
+  return element;
+};
 
-  if (element) return element
-  throw Error(
-    `Please double check your class names, there is no ${selector} class`
-  )
-}
+// Navigation functionality
+const initNavigation = () => {
+  const links = getElement('.nav-links');
+  const navBtn = getElement('.nav-btn');
 
-const links = getElement('.nav-links')
-const navBtnDOM = getElement('.nav-btn')
+  navBtn.addEventListener('click', () => {
+    links.classList.toggle('show-links');
+  });
+};
 
-navBtnDOM.addEventListener('click', () => {
-  links.classList.toggle('show-links')
-})
+// Date functionality 
+const updateCopyright = () => {
+  const dateElement = getElement('#date');
+  dateElement.textContent = new Date().getFullYear();
+};
 
-const date = getElement('#date')
-const currentYear = new Date().getFullYear()
-date.textContent = currentYear
+// Initialize everything
+initNavigation();
+updateCopyright();
